@@ -1,4 +1,4 @@
-package com.electroeing.finder;
+package com.electroeing.finder.service;
 
 import com.electroeing.finder.entities.Person;
 import com.electroeing.finder.repository.TeamRepository;

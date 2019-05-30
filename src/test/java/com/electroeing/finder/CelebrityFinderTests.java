@@ -2,6 +2,7 @@ package com.electroeing.finder;
 
 import com.electroeing.finder.entities.Person;
 import com.electroeing.finder.repository.TeamRepository;
+import com.electroeing.finder.service.CelebrityFinder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

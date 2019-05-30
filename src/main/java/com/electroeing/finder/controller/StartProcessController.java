@@ -1,6 +1,6 @@
 package com.electroeing.finder.controller;
 
-import com.electroeing.finder.CelebrityFinder;
+import com.electroeing.finder.service.CelebrityFinder;
 import com.electroeing.finder.entities.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
