@@ -51,7 +51,7 @@ public class IntegrationTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/find"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("The celebrity is the person number 17"))
+                .andExpect(MockMvcResultMatchers.content().string("The celebrity is the person number 9"))
                 .andReturn();
 
         assertThat(result).isNotNull();

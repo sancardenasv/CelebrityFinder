@@ -19,7 +19,7 @@ public class StartProcessController {
         if (celebrity.isPresent()) {
             return String.format("The celebrity is the person number %s", celebrity.get().getId());
         }
-        return "The is no celebrity in the team";
+        return "No celebrity found in the team";
 
     }
 }

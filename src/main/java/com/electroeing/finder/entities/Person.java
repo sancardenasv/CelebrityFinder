@@ -11,6 +11,7 @@ public class Person {
     @Id
     private Long id;
     private boolean celebrity;
+    private String known;
 
     public Long getId() {
         return id;
@@ -28,12 +29,21 @@ public class Person {
         this.celebrity = celebrity;
     }
 
+    public String getKnown() {
+        return known;
+    }
+
+    public void setKnown(String known) {
+        this.known = known;
+    }
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Person{");
-        sb.append("id=").append(id);
-        sb.append(", celebrity=").append(celebrity);
-        sb.append('}');
-        return sb.toString();
+        return new StringBuilder("Person{")
+                .append("id=").append(id)
+                .append(", celebrity=").append(celebrity)
+                .append(", known='").append(known).append('\'')
+                .append('}').toString();
+
     }
 }

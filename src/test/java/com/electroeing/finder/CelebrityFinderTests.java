@@ -34,6 +34,7 @@ public class CelebrityFinderTests {
         Optional<Person> result = celebrityFinder.findCelebrity();
         assertThat(result).isPresent();
         assertThat(result.orElse(null)).hasFieldOrPropertyWithValue("id", (long) random);
+        assertThat(result.orElse(null)).hasFieldOrPropertyWithValue("celebrity", true);
 
     }
 
@@ -59,6 +60,7 @@ public class CelebrityFinderTests {
             Person p = new Person();
             p.setId((long) i);
             p.setCelebrity(i == random && withCelebrity);
+            p.setKnown(p.isCelebrity() || !withCelebrity ? "" : String.valueOf(random));
             teamMock.add(p);
         }
         return teamMock;

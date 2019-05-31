@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,18 +24,25 @@ public class CelebrityFinder {
         List<Person> team = teamRepository.findAll();
         logger.info("Team size loaded: {}", team.size());
         logger.debug("Team: {}", team);
+
         Optional<Person> celebrity = Optional.empty();
         if (!team.isEmpty()){
-            celebrity = Optional.of(team.get(0));
-            for (int i = 1; i < team.size(); i++) {
-                if (personKnowsTarget(celebrity.get(), team.get(i))) {
-                    celebrity = Optional.of(team.get(i));
+            Deque<Person> teamStack = new LinkedList<>(team);
+            while (teamStack.size() > 1) {
+                Person a = teamStack.pop();
+                Person b = teamStack.pop();
+
+                if (personKnowsTarget(a, b)) {
+                    teamStack.push(b);
+                } else {
+                    teamStack.push(a);
                 }
             }
+            celebrity = Optional.of(teamStack.pop());
 
             for (Person p : team) {
-                if (celebrity.get().getId().intValue() != p.getId().intValue()
-                        && personKnowsTarget(celebrity.get(), p)) {
+                if (!celebrity.get().getId().equals(p.getId())
+                        && (personKnowsTarget(celebrity.get(), p) || !personKnowsTarget(p, celebrity.get()))) {
                     return Optional.empty();
                 }
             }
@@ -51,6 +61,7 @@ public class CelebrityFinder {
      * @return : true only if person knows target
      */
     private boolean personKnowsTarget(Person person, Person target) {
-        return target.isCelebrity() || (!person.isCelebrity() && !target.isCelebrity());
+        List<String> knownPersons = Arrays.asList(person.getKnown().split("\\s*,\\s*"));
+        return knownPersons.contains(target.getId().toString());
     }
 }
