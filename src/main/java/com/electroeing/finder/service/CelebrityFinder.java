@@ -54,7 +54,7 @@ public class CelebrityFinder {
     }
 
     /**
-     * Returns true if target is a celebrity or both are not celebrities
+     * Returns true if target id is in the known person list
      *
      * @param person: person that is been asked to know another
      * @param target: person which is been talked about
