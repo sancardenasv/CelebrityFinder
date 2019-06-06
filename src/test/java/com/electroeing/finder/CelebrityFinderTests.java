@@ -54,6 +54,39 @@ public class CelebrityFinderTests {
 
     }
 
+    @Test
+    public void findCelebrityTeamKnowOtherMembersTest() {
+        // Create a list with 3 persons, 2 of them know each other
+        List<Person> team = new ArrayList<>();
+        Person p = new Person();
+        p.setId(1L);
+        p.setCelebrity(false);
+        p.setKnown("2,3");
+        team.add(p);
+
+        p = new Person();
+        p.setId(2L);
+        p.setCelebrity(false);
+        p.setKnown("1,3");
+        team.add(p);
+
+        p = new Person();
+        p.setId(3L);
+        p.setCelebrity(true);
+        p.setKnown("");
+        team.add(p);
+
+
+        Mockito.when(teamRepositoryMock.findAll()).thenReturn(team);
+
+        Optional<Person> result = celebrityFinder.findCelebrity();
+
+        assertThat(result).isPresent();
+        assertThat(result.orElse(null)).hasFieldOrPropertyWithValue("id", 3L);
+        assertThat(result.orElse(null)).hasFieldOrPropertyWithValue("celebrity", true);
+
+    }
+
     private List<Person> generateTeamMock(int teamSize, boolean withCelebrity) {
         List<Person> teamMock = new ArrayList<>();
         for (int i = 0; i < teamSize; i++) {
